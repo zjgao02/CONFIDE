@@ -1,6 +1,6 @@
-# CODE & CONFIDE
+# Self-Evaluating Diffusion Embeddings Improve Reliability of Biomolecular Structure Predictions
 
-CODE, a latent-space trajectory–based metric, and CONFIDE, an integrated score that jointly quantify topological and energetic frustrations underlying unreliable AlphaFold3 predictions.
+Here, we introduce CODE (Chain of Diffusion Embedding), a latent-space trajectory–based metric, and CONFIDE, an integrated score that jointly quantify topological and energetic frustrations underlying unreliable AlphaFold3 predictions. You can use these tools to detect hallucination in structure prediction, as loss functions to enhance de novo binder design, and also for virtual screening.
 
 ## Overview
 Inspired by the topological frustration theory in protein folding, we reformulated the diffusion embedding trajectories of the AF3 series structure predictors into CODE, a metric that captures topological frustration overlooked by the conventional confidence metric pLDDT. We propose CONFIDE, a unified framework integrating topological frustration and pLDDT-represented energetic frustration to comprehensively characterize the protein folding energy landscape.
