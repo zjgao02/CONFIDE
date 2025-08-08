@@ -1,0 +1,2 @@
+[console_scripts]
+boltz = boltz.main:cli
