@@ -539,6 +539,13 @@ def cli() -> None:
     help="Pairing strategy to use. Used only if --use_msa_server is set. Options are 'greedy' and 'complete'",
     default="greedy",
 )
+@click.option(
+    "--token_save_dir",
+    type=click.Path(exists=False),
+    help="Directory to save token_a_list .pt files. If not set, they won't be saved.",
+    default=None,
+)
+
 def predict(
     data: str,
     out_dir: str,
@@ -672,6 +679,7 @@ def predict(
         data_dir=processed.targets_dir,
         output_dir=out_dir / "predictions",
         output_format=output_format,
+        token_save_dir=token_save_dir,
     )
 
     trainer = Trainer(
