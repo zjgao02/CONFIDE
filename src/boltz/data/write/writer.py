@@ -26,6 +26,7 @@ class BoltzWriter(BasePredictionWriter):
         data_dir: str,
         output_dir: str,
         output_format: Literal["pdb", "mmcif"] = "mmcif",
+        token_save_dir: str | None = None,
     ) -> None:
         """Initialize the writer.
 
@@ -44,7 +45,11 @@ class BoltzWriter(BasePredictionWriter):
         self.output_dir = Path(output_dir)
         self.output_format = output_format
         self.failed = 0
-
+        
+        self.token_save_dir = Path(token_save_dir) if token_save_dir else None
+        if self.token_save_dir is not None:
+            self.token_save_dir.mkdir(parents=True, exist_ok=True)
+            
         # Create the output directories
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -62,8 +67,7 @@ class BoltzWriter(BasePredictionWriter):
         if prediction["exception"]:
             self.failed += 1
             return
-        # print(prediction['coe'])
-        # exit()
+        
         # Get the records
         records: list[Record] = batch["record"]
 
@@ -78,8 +82,13 @@ class BoltzWriter(BasePredictionWriter):
         idx_to_rank = {idx.item(): rank for rank, idx in enumerate(argsort)}
         # Iterate over the records
         for record, coord, pad_mask in zip(records, coords, pad_masks):
+            if self.token_save_dir is not None and 'token_a_list' in prediction:
+                torch.save(
+                    prediction['token_a_list'],
+                    self.token_save_dir / f"{record.id}.pt",
+                )
+
             # Load the structure
-            torch.save(prediction['token_a_list'], f'/data/home/luruiqiang/guchunbin/boltz/examples/{record.id}.pt')
             path = self.data_dir / f"{record.id}.npz"
             structure: Structure = Structure.load(path)
             # Compute chain map with masked removed, to be used later
