@@ -43,11 +43,16 @@ boltz predict input_path --out_dir output_path --cache ./
 
 #### Data Analysis
 You can get the confidence score directly from the Boltz output, which represents the energy frustration.
-
-After that you can run the code.py code to perform energy combination analysis in CONFIDE:
+After that, you need to compare your output structure from boltz with ground truth pdb structure using TM_align: https://aideepmed.com/RNA-align/TMalign/ . Then save the results in a csv file 'rmsd.csv' with column name 'protein' and 'rmsd'.
+Finally, you can run the code.py code to perform energy combination analysis in CONFIDE:
 
 ```bash
-python code.py
+python code.py \
+  --pt_dir /path/to/pt_files \
+  --plddt_dir /path/to/json_files \
+  --rmsd_csv /path/to/rmsd.csv \
+  --output_dir /path/to/outputs \
+  --method_name your_results
 ```
 
 
