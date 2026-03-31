@@ -31,14 +31,12 @@ cd CONFIDE
 
 First, you need to construct YAML files for Boltz1 predict. You can refer to 'examples/prot_no_msa.yaml'.
 
-Next, for saving the CODE trajectory, you can modify the path in https://github.com/zjgao02/CONFIDE/blob/b436e7c762ab3c6ded1c816e833b8385eec0cee9/src/boltz/data/write/writer.py#L82
-
 #### Inference
 
 Then you can run inference using Boltz with:
 
 ```bash
-boltz predict input_path --out_dir output_path --cache ./
+boltz predict input_path --out_dir output_path --cache ./ --token_save_dir /path/to/pt_files
 ```
 
 #### Data Analysis
